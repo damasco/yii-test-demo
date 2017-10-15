@@ -1,6 +1,6 @@
 <?php
 
-namespace application\components;
+namespace App\Components;
 
 /**
  * UserIdentity represents the data needed to identity a user.
@@ -19,11 +19,11 @@ class UserIdentity extends \CUserIdentity
      */
     public function authenticate()
     {
-        $users = array(
+        $users = [
             // username => password
             'demo' => 'demo',
             'admin' => 'admin',
-        );
+        ];
 
         if (!isset($users[$this->username])) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;

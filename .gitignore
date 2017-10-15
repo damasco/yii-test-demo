@@ -31,3 +31,8 @@ tests/_support/_generated
 
 # php cs fixer
 .php_cs.cache
+
+# index
+/public/index.php
+# db config
+/config/db.php

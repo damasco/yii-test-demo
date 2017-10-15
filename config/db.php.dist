@@ -1,0 +1,11 @@
+<?php
+
+return [
+    'connectionString' => 'mysql:host=localhost;dbname=your_dbname',
+    'emulatePrepare' => true,
+    'username' => 'your_username',
+    'password' => 'your_password',
+    'charset' => 'utf8',
+    'enableProfiling' => true,
+    'enableParamLogging' => true,
+];

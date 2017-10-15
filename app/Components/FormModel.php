@@ -1,8 +1,7 @@
 <?php
 
-namespace application\components;
+namespace App\Components;
 
 class FormModel extends \CFormModel
 {
-
 }
