@@ -22,10 +22,21 @@ return [
             'password' => '123456',
             'ipFilters' => ['127.0.0.1', '::1'],
         ],
+        'api' => [
+            'class' => \App\Api\ApiModule::class,
+        ],
     ],
     'components' => [
+        'request' => [
+            'class' => \App\Component\Request::class,
+            'enableCsrfValidation' => true,
+            'noCsrfValidationRoutes' => [
+                'api/*',
+            ],
+        ],
         'user' => [
             'allowAutoLogin' => true,
+            'loginUrl' => ['auth/login'],
         ],
         'urlManager' => [
             'urlFormat' => 'path',

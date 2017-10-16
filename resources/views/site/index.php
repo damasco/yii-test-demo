@@ -1,11 +1,25 @@
 <?php
-/* @var $this \application\controllers\SiteController */
+
+
+/* @var $this \App\Controller\SiteController */
+/* @var $model \App\Model\User */
 
 $this->pageTitle = \Yii::app()->name;
 ?>
 
-<h1>Welcome to <?= \CHtml::encode(\Yii::app()->name); ?></h1>
+<h1>Profile</h1>
 
-<p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos ratione eius sed labore qui, itaque et unde architecto facere libero! Sit corrupti vel numquam enim omnis quam, quibusdam ad natus?
-</p>
+<?php $this->widget('zii.widgets.CDetailView', [
+    'data' => $model,
+    'htmlOptions' => ['class' => 'table table-bordered'],
+    'attributes' => [
+        'email',
+        'token_api',
+        'balance',
+        [
+            'label' => 'Username',
+            'type' => 'raw',
+            'value' => ($model->username ?: '') . ' ' . \CHtml::link('Update', ['site/update'], ['class' => 'btn btn-sm btn-default']),
+        ]
+    ],
+]);

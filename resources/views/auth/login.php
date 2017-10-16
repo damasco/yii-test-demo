@@ -1,12 +1,9 @@
 <?php
-/* @var $this \application\controllers\SiteController */
-/* @var $model \application\models\LoginForm */
+/* @var $this \App\Controller\SiteController */
+/* @var $model \App\Form\LoginForm */
 /* @var $form \CActiveForm */
 
 $this->pageTitle = \Yii::app()->name . ' - Login';
-$this->breadcrumbs = [
-    'Login',
-];
 ?>
 
 <?php if (Yii::app()->user->hasFlash('login')): ?>

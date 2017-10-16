@@ -4,6 +4,7 @@ namespace App\Component;
 
 use App\Exception\NotFoundHttpException;
 use App\Exception\ServerErrorHttpException;
+use App\Factory\UserFactory;
 use App\Model\TempUser;
 use App\Model\User;
 use Ramsey\Uuid\Uuid;
@@ -59,9 +60,10 @@ class UserIdentity implements \IUserIdentity
             'auth_key' => $this->authKey,
             'email' => $this->email
         ]);
+
         if ($user !== null) {
             $user->auth_key = Uuid::uuid4();
-            if (!$user->save(false)) {
+            if (!$user->save()) {
                 throw new ServerErrorHttpException;
             }
         } else {
@@ -69,19 +71,14 @@ class UserIdentity implements \IUserIdentity
                 'auth_key' => $this->authKey,
                 'email' => $this->email
             ]);
+
             if ($tempUser === null) {
                 throw new NotFoundHttpException;
             }
 
-            $user = new User();
-            $user->email = $tempUser->email;
-            $user->auth_key = Uuid::uuid4();
-            if ($user->save()) {
-                // new user
-                $tempUser->delete();
-            } else {
-                throw new ServerErrorHttpException;
-            }
+            $user = UserFactory::createUser($tempUser->email);
+            \Yii::app()->user->setFlash('main', 'You are credited with 1000 rubles');
+            $tempUser->delete();
         }
 
         $this->user = $user;

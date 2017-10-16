@@ -5,24 +5,24 @@ namespace App\Model;
 use App\Component\ActiveRecord;
 
 /**
- * This is the model class for table "users".
+ * This is the model class for table "withdraw_money".
  *
- * The followings are the available columns in table 'users':
- * @property int $id
- * @property string $email
- * @property string $username
- * @property string $auth_key
- * @property string $token_api
- * @property int $balance
+ * The followings are the available columns in table 'withdraw_money':
+ * @property integer $id
+ * @property integer $user_id
+ * @property integer $amount
+ *
+ * The followings are the available model relations:
+ * @property User $user
  */
-class User extends ActiveRecord implements Auth
+class WithdrawMoney extends ActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'users';
+        return 'withdraw_money';
     }
 
     /**
@@ -33,12 +33,11 @@ class User extends ActiveRecord implements Auth
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['email, auth_key, token_api, balance', 'required'],
-            ['email, username, auth_key, token_api', 'length', 'max' => 255],
-            ['balance', 'numerical', 'integerOnly' => true],
+            ['user_id, amount', 'required'],
+            ['user_id, amount', 'numerical', 'integerOnly'=>true],
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            ['id, email, username, auth_key, token_api, balance', 'safe', 'on' => 'search'],
+            ['id, user_id, amount', 'safe', 'on'=>'search'],
         ];
     }
 
@@ -50,7 +49,7 @@ class User extends ActiveRecord implements Auth
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return [
-            'withdrawalRequests' => [self::HAS_MANY, WithdrawMoney::class, 'user_id'],
+            'user' => [self::BELONGS_TO, 'Users', 'user_id'],
         ];
     }
 
@@ -61,11 +60,8 @@ class User extends ActiveRecord implements Auth
     {
         return [
             'id' => 'ID',
-            'email' => 'Email',
-            'username' => 'Username',
-            'auth_key' => 'Auth Key',
-            'token_api' => 'Token Api',
-            'balance' => 'Balance',
+            'user_id' => 'User',
+            'amount' => 'Amount',
         ];
     }
 
@@ -85,17 +81,14 @@ class User extends ActiveRecord implements Auth
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
-        $criteria = new \CDbCriteria;
+        $criteria=new \CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('email', $this->email, true);
-        $criteria->compare('username', $this->username, true);
-        $criteria->compare('auth_key', $this->auth_key, true);
-        $criteria->compare('token_api', $this->token_api, true);
-        $criteria->compare('balance', $this->balance);
+        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('amount', $this->amount);
 
         return new \CActiveDataProvider($this, [
-            'criteria' => $criteria,
+            'criteria'=>$criteria,
         ]);
     }
 
@@ -103,26 +96,10 @@ class User extends ActiveRecord implements Auth
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return User the static model class
+     * @return WithdrawMoney the static model class
      */
-    public static function model($className = __CLASS__)
+    public static function model($className=__CLASS__)
     {
         return parent::model($className);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAuthKey()
-    {
-        return $this->auth_key;
     }
 }

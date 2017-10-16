@@ -8,9 +8,13 @@
     <meta name="language" content="<?= \Yii::app()->language ?>">
 
     <?php \Yii::app()->clientScript->registerCssFile(
-        \Yii::app()->assetManager->publish(
-            \Yii::getPathOfAlias('bower.bootstrap.dist.css') . '/bootstrap.min.css'
-        )
+        \Yii::app()->assetManager->publish(\Yii::getPathOfAlias('bower.bootstrap.dist.css') . '/bootstrap.min.css')
+    ) ?>
+    
+    <?php Yii::app()->clientScript->registerCoreScript('jquery') ?>
+    
+    <?php \Yii::app()->clientScript->registerScriptFile(
+        \Yii::app()->assetManager->publish(\Yii::getPathOfAlias('bower.bootstrap.dist.js') . '/bootstrap.min.js')
     ) ?>
 
     <link rel="stylesheet" type="text/css" href="<?= \Yii::app()->request->baseUrl; ?>/css/main.css">
@@ -43,8 +47,9 @@
                     ],
                     'items' => [
                         [
-                            'label' => 'Home',
-                            'url' => ['/site/index']
+                            'label' => 'Profile',
+                            'url' => ['/site/index'],
+                            'visible' => !\Yii::app()->user->isGuest,
                         ],
                     ],
                 ]); ?>
@@ -62,9 +67,19 @@
                             'label' => 'Logout (' . \Yii::app()->user->name . ')',
                             'url' => ['/auth/logout'],
                             'visible' => !\Yii::app()->user->isGuest,
+                            'itemOptions' => [
+                                'onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"
+                            ]
                         ],
                     ],
                 ]); ?>
+                <?php if (!\Yii::app()->user->isGuest): ?>
+                    <?= \CHtml::form('/auth/logout', 'post', [
+                        'id' => 'logout-form',
+                        'style' => 'display: none',
+                    ]) ?>
+                    <?= \CHtml::endForm() ?>
+                <?php endif ?>
             </div>
         </div>
     </nav>
@@ -72,6 +87,7 @@
     <div class="container">
         <?php if (isset($this->breadcrumbs)): ?>
             <?php $this->widget('zii.widgets.CBreadcrumbs', [
+                'homeLink' => \CHtml::link('Profile', ['site/index']),
                 'links' => $this->breadcrumbs,
                 'tagName' => 'ol',
                 'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>',
@@ -81,6 +97,13 @@
                     'class' => 'breadcrumb',    
                 ],
             ]); ?>
+        <?php endif ?>
+
+
+        <?php if (Yii::app()->user->hasFlash('main')): ?>
+        <div class="alert alert-info">
+            <?= Yii::app()->user->getFlash('main'); ?>
+        </div>
         <?php endif ?>
 
         <?= $content; ?>

@@ -38,4 +38,24 @@ class UserFactory
 
         return $tempUser;
     }
+
+    /**
+     * @param string $email
+     * @return User
+     * @throws ServerErrorHttpException
+     */
+    public static function createUser($email)
+    {
+        $user = new User();
+        $user->email = $email;
+        $user->auth_key = Uuid::uuid4();
+        $user->token_api = Uuid::uuid4();
+        $user->balance = 1000;
+
+        if (!$user->save()) {
+            throw new ServerErrorHttpException;
+        }
+
+        return $user;
+    }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Component;
 
-use Swift_SmtpTransport;
 use Swift_Mailer;
 use Swift_Message;
+use Swift_SmtpTransport;
 use Yii;
 
 class Mailer extends \CComponent

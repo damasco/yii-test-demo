@@ -15,6 +15,36 @@ use Yii;
 */
 class AuthController extends Controller
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function filters()
+    {
+        return [
+            'accessControl',
+            'postOnly + logout',
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function accessRules()
+    {
+        return [
+            [
+                'deny',
+                'actions' => ['logout'],
+                'users' => ['?'],
+            ],
+            [
+                'allow',
+                'actions' => ['login', 'active'],
+                'users' => ['?'],
+            ],
+        ];
+    }
+
     public function actionLogin()
     {
         $model = new LoginForm();

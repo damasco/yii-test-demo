@@ -1,5 +1,5 @@
 <?php
-/* @var $this \application\components\Controller */
+/* @var $this \App\Component\Controller */
 ?>
 <?php $this->beginContent('//layouts/main'); ?>
     <div id="content">
