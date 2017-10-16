@@ -1,0 +1,10 @@
+<?php
+
+return [
+    'class' => \App\Component\Mailer::class,
+    'smtp' => 'smtp',
+    'port' => 'port',
+    'username' => 'username',
+    'password' => 'password',
+    //'encryption' => '',
+];

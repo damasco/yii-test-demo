@@ -6,8 +6,9 @@ return [
     'basePath' => __DIR__ . '/../app',
     'name' => 'Demo console',
     'preload' => ['log'],
+    'runtimePath' => __DIR__ . '/../runtime',
     'components' => [
-        'db' => require __DIR__ . '/db.php.dist',
+        'db' => require __DIR__ . '/db.php',
         'log' => [
             'class' => \CLogRouter::class,
             'routes' => [
@@ -19,11 +20,11 @@ return [
         ],
     ],
     'commandMap' => [
-        'migrate'=>[
-            'class'=>'system.cli.commands.MigrateCommand',
-            'migrationPath'=>'migrations',
-            'migrationTable'=>'migrations',
-            'connectionID'=>'db',
+        'migrate' => [
+            'class' => 'system.cli.commands.MigrateCommand',
+            'migrationPath' => 'migrations',
+            'migrationTable' => 'migrations',
+            'connectionID' => 'db',
         ]
     ],
 ];

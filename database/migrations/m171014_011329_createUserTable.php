@@ -2,24 +2,31 @@
 
 class m171014_011329_createUserTable extends CDbMigration
 {
-	public function up()
-	{
-	}
+    /**
+     * @var string
+     */
+    protected $tableName = 'users';
 
-	public function down()
-	{
-		echo "m171014_011329_createUserTable does not support migration down.\n";
-		return false;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function safeUp()
+    {
+        $this->createTable($this->tableName, [
+            'id' => 'pk',
+            'email' => 'string NOT NULL unique',
+            'username' => 'string',
+            'auth_key' => 'string NOT NULL',
+        ]);
 
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
+        $this->createIndex('idx-email', $this->tableName, 'email', true);
+    }
 
-	public function safeDown()
-	{
-	}
-	*/
+    /**
+     * {@inheritdoc}
+     */
+    public function safeDown()
+    {
+        $this->dropTable($this->tableName);
+    }
 }

@@ -6,9 +6,10 @@
 return [
     'basePath' => __DIR__ . '/../app',
     'name' => 'Demo',
-    'controllerNamespace' => '\App\Controllers',
-    'language' => 'ru',
-    'runtimePath' =>  __DIR__ . '/../runtime',
+    'controllerPath' => __DIR__ . '/../app/Controller',
+    'controllerNamespace' => '\App\Controller',
+    'language' => 'en',
+    'runtimePath' => __DIR__ . '/../runtime',
     'viewPath' => __DIR__ . '/../resources/views',
     'preload' => [
         'log',
@@ -47,6 +48,7 @@ return [
                 ],
             ],
         ],
+        'mailer' => require __DIR__ . '/mail.php',
     ],
     'params' => [
         'adminEmail' => 'webmaster@example.com',

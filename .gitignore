@@ -36,3 +36,4 @@ tests/_support/_generated
 /public/index.php
 # db config
 /config/db.php
+/config/mail.php

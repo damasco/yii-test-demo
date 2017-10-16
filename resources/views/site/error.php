@@ -1,4 +1,4 @@
-k .,<?php
+<?php
 /* @var $this \application\controllers\SiteController */
 /* @var $error array */
 

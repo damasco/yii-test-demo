@@ -32,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <?= \CHtml::link('Brand', ['/site/index'], ['class' => 'navbar-brand']) ?>
+                <?= \CHtml::link('Demo', ['/site/index'], ['class' => 'navbar-brand']) ?>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -55,12 +55,12 @@
                     'items' => [
                         [
                             'label' => 'Login',
-                            'url' => ['/site/login'],
+                            'url' => ['/auth/login'],
                             'visible' => \Yii::app()->user->isGuest,
                         ],
                         [
                             'label' => 'Logout (' . \Yii::app()->user->name . ')',
-                            'url' => ['/site/logout'],
+                            'url' => ['/auth/logout'],
                             'visible' => !\Yii::app()->user->isGuest,
                         ],
                     ],
