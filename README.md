@@ -22,3 +22,8 @@ For folder: `./vendor/bin/php-cs-fixer fix ./folder-name --config .php_cs`
 For project: `./vendor/bin/php-cs-fixer fix --config .php_cs`
 
 Using the composer for the "app" folder: `composer phpcs-fixer`
+
+
+## Api withdrawal money
+
+`POST /api/money/withdrawal?token={your_token}&amount={amount}`
